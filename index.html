@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100" data-bs-theme="auto">
+  <head>
+    <script src="./assets/js/color-modes.js"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="Mike Eason" />
+    <title>Pokémaths</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/5.3/examples/cover/"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"
+    />
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, 0.1);
+        border: solid rgba(0, 0, 0, 0.15);
+        border-width: 1px 0;
+        box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
+          inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -0.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet" />
+  </head>
+  <body class="d-flex h-100 text-center text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <div>
+          <h3 class="float-md-start mb-0">Pokémaths</h3>
+        </div>
+      </header>
+
+      <main class="px-3">
+        <div class="row">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12 text-end">
+                <h1 id="eqTop">12</h1>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 text-end">
+                <h1 id="eqBottom">+ 25</h1>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 text-end">
+                <input
+                  id="txtAnswer"
+                  type="number"
+                  class="form-control text-end"
+                />
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12 text-end">
+                <span id="txtFeedback" class="text-danger"></span>
+                <button id="btnCatch" type="button" class="btn btn-bd-primary">
+                  Catch!
+                </button>
+              </div>
+              <div class="col-12 text-end">
+                <p id="txtResult"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <img id="imgPokemonLarge" width="250" height="250" />
+            <h3 id="txtPokemonName"></h3>
+          </div>
+        </div>
+      </main>
+
+      <footer class="mt-auto text-white-50">
+        <!-- <button id="btnBack" class="btn btn-bd-primary" type="button">Back</button> -->
+        <button id="btnNext" class="btn btn-success" type="button">Next</button>
+      </footer>
+    </div>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+
+  <script>
+    const pokedex = JSON.parse(
+      `[{"id":1,"name":"Bulbasaur"},{"id":2,"name":"Ivysaur"},{"id":3,"name":"Venusaur"},{"id":4,"name":"Charmander"},{"id":5,"name":"Charmeleon"},{"id":6,"name":"Charizard"},{"id":7,"name":"Squirtle"},{"id":8,"name":"Wartortle"},{"id":9,"name":"Blastoise"},{"id":10,"name":"Caterpie"},{"id":11,"name":"Metapod"},{"id":12,"name":"Butterfree"},{"id":13,"name":"Weedle"},{"id":14,"name":"Kakuna"},{"id":15,"name":"Beedrill"},{"id":16,"name":"Pidgey"},{"id":17,"name":"Pidgeotto"},{"id":18,"name":"Pidgeot"},{"id":19,"name":"Rattata"},{"id":20,"name":"Raticate"},{"id":21,"name":"Spearow"},{"id":22,"name":"Fearow"},{"id":23,"name":"Ekans"},{"id":24,"name":"Arbok"},{"id":25,"name":"Pikachu"},{"id":26,"name":"Raichu"},{"id":27,"name":"Sandshrew"},{"id":28,"name":"Sandslash"},{"id":29,"name":"Nidoran♀"},{"id":30,"name":"Nidorina"},{"id":31,"name":"Nidoqueen"},{"id":32,"name":"Nidoran♂"},{"id":33,"name":"Nidorino"},{"id":34,"name":"Nidoking"},{"id":35,"name":"Clefairy"},{"id":36,"name":"Clefable"},{"id":37,"name":"Vulpix"},{"id":38,"name":"Ninetales"},{"id":39,"name":"Jigglypuff"},{"id":40,"name":"Wigglytuff"},{"id":41,"name":"Zubat"},{"id":42,"name":"Golbat"},{"id":43,"name":"Oddish"},{"id":44,"name":"Gloom"},{"id":45,"name":"Vileplume"},{"id":46,"name":"Paras"},{"id":47,"name":"Parasect"},{"id":48,"name":"Venonat"},{"id":49,"name":"Venomoth"},{"id":50,"name":"Diglett"},{"id":51,"name":"Dugtrio"},{"id":52,"name":"Meowth"},{"id":53,"name":"Persian"},{"id":54,"name":"Psyduck"},{"id":55,"name":"Golduck"},{"id":56,"name":"Mankey"},{"id":57,"name":"Primeape"},{"id":58,"name":"Growlithe"},{"id":59,"name":"Arcanine"},{"id":60,"name":"Poliwag"},{"id":61,"name":"Poliwhirl"},{"id":62,"name":"Poliwrath"},{"id":63,"name":"Abra"},{"id":64,"name":"Kadabra"},{"id":65,"name":"Alakazam"},{"id":66,"name":"Machop"},{"id":67,"name":"Machoke"},{"id":68,"name":"Machamp"},{"id":69,"name":"Bellsprout"},{"id":70,"name":"Weepinbell"},{"id":71,"name":"Victreebel"},{"id":72,"name":"Tentacool"},{"id":73,"name":"Tentacruel"},{"id":74,"name":"Geodude"},{"id":75,"name":"Graveler"},{"id":76,"name":"Golem"},{"id":77,"name":"Ponyta"},{"id":78,"name":"Rapidash"},{"id":79,"name":"Slowpoke"},{"id":80,"name":"Slowbro"},{"id":81,"name":"Magnemite"},{"id":82,"name":"Magneton"},{"id":83,"name":"Farfetch'd"},{"id":84,"name":"Doduo"},{"id":85,"name":"Dodrio"},{"id":86,"name":"Seel"},{"id":87,"name":"Dewgong"},{"id":88,"name":"Grimer"},{"id":89,"name":"Muk"},{"id":90,"name":"Shellder"},{"id":91,"name":"Cloyster"},{"id":92,"name":"Gastly"},{"id":93,"name":"Haunter"},{"id":94,"name":"Gengar"},{"id":95,"name":"Onix"},{"id":96,"name":"Drowzee"},{"id":97,"name":"Hypno"},{"id":98,"name":"Krabby"},{"id":99,"name":"Kingler"},{"id":100,"name":"Voltorb"},{"id":101,"name":"Electrode"},{"id":102,"name":"Exeggcute"},{"id":103,"name":"Exeggutor"},{"id":104,"name":"Cubone"},{"id":105,"name":"Marowak"},{"id":106,"name":"Hitmonlee"},{"id":107,"name":"Hitmonchan"},{"id":108,"name":"Lickitung"},{"id":109,"name":"Koffing"},{"id":110,"name":"Weezing"},{"id":111,"name":"Rhyhorn"},{"id":112,"name":"Rhydon"},{"id":113,"name":"Chansey"},{"id":114,"name":"Tangela"},{"id":115,"name":"Kangaskhan"},{"id":116,"name":"Horsea"},{"id":117,"name":"Seadra"},{"id":118,"name":"Goldeen"},{"id":119,"name":"Seaking"},{"id":120,"name":"Staryu"},{"id":121,"name":"Starmie"},{"id":122,"name":"Mr. Mime"},{"id":123,"name":"Scyther"},{"id":124,"name":"Jynx"},{"id":125,"name":"Electabuzz"},{"id":126,"name":"Magmar"},{"id":127,"name":"Pinsir"},{"id":128,"name":"Tauros"},{"id":129,"name":"Magikarp"},{"id":130,"name":"Gyarados"},{"id":131,"name":"Lapras"},{"id":132,"name":"Ditto"},{"id":133,"name":"Eevee"},{"id":134,"name":"Vaporeon"},{"id":135,"name":"Jolteon"},{"id":136,"name":"Flareon"},{"id":137,"name":"Porygon"},{"id":138,"name":"Omanyte"},{"id":139,"name":"Omastar"},{"id":140,"name":"Kabuto"},{"id":141,"name":"Kabutops"},{"id":142,"name":"Aerodactyl"},{"id":143,"name":"Snorlax"},{"id":144,"name":"Articuno"},{"id":145,"name":"Zapdos"},{"id":146,"name":"Moltres"},{"id":147,"name":"Dratini"},{"id":148,"name":"Dragonair"},{"id":149,"name":"Dragonite"},{"id":150,"name":"Mewtwo"},{"id":151,"name":"Mew"}]`
+    );
+
+    function generateEquation(pokemonId) {
+      // Generate a random operator ('+' or '-')
+      const operators = ["+", "-"];
+      const operator = operators[Math.floor(Math.random() * operators.length)];
+
+      // Generate random numbers based on the operator
+      let a, b;
+      if (operator === "+") {
+        a = Math.floor(Math.random() * pokemonId);
+        b = pokemonId - a;
+      } else {
+        // operator === '-'
+        a = Math.floor(Math.random() * (151 - pokemonId)) + pokemonId;
+        b = a - pokemonId;
+      }
+
+      return { a, b, operator, answer: pokemonId };
+    }
+
+    var equation = null;
+    var pokemon = null;
+
+    var imgPokemonLarge = document.getElementById("imgPokemonLarge");
+    var txtPokemonName = document.getElementById("txtPokemonName");
+    var eqTop = document.getElementById("eqTop");
+    var eqBottom = document.getElementById("eqBottom");
+    var txtAnswer = document.getElementById("txtAnswer");
+    var txtFeedback = document.getElementById("txtFeedback");
+    var btnNext = document.getElementById("btnNext");
+    var btnCatch = document.getElementById("btnCatch");
+
+    function nextEquation() {
+      var id = Math.floor(Math.random() * 151) + 1;
+
+      pokemon = pokedex.find((pokemon) => pokemon.id === id);
+      equation = generateEquation(id);
+
+      imgPokemonLarge.src = "./assets/pokemon/pokeball.png";
+      imgPokemonLarge.alt = "???";
+      txtPokemonName.innerText = "???";
+      eqTop.innerText = equation.a;
+      eqBottom.innerText = equation.operator + " " + equation.b;
+      txtFeedback.innerText = "";
+      txtAnswer.value = "";
+    }
+
+    function checkAnswer() {
+      var answer = parseInt(txtAnswer.value);
+
+      if (answer === equation.answer) {
+        imgPokemonLarge.src =
+          "./assets/pokemon/images/" +
+          String(pokemon.id).padStart(3, "0") +
+          ".png";
+        imgPokemonLarge.alt = pokemon.name;
+        txtPokemonName.innerText = pokemon.name;
+        txtFeedback.innerText = "";
+      } else {
+        txtFeedback.innerText = "Try again!";
+      }
+    }
+
+    btnNext.addEventListener("click", nextEquation);
+    btnCatch.addEventListener("click", checkAnswer);
+
+    nextEquation();
+  </script>
+</html>
